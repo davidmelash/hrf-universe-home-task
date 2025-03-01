@@ -19,17 +19,16 @@ depends_on = None
 
 
 def upgrade() -> None:
-    dir_name = os.path.dirname(__file__)
-
-    file_name = os.path.join(dir_name, '/tmp/data/standard_job_family.csv')
-    op.execute(f"COPY public.standard_job_family FROM '{file_name}' WITH (FORMAT CSV, HEADER TRUE);", execution_options=None)
-
-    file_name = os.path.join(dir_name, '/tmp/data/standard_job.csv')
-    op.execute(f"COPY public.standard_job FROM '{file_name}' WITH (FORMAT CSV, HEADER TRUE);", execution_options=None)
-
-    file_name = os.path.join(dir_name, '/tmp/data/job_posting.csv')
     op.execute(
-        f"""COPY public.job_posting FROM '{file_name}' WITH (FORMAT CSV, HEADER TRUE);""",
+        "COPY public.standard_job_family FROM '/tmp/data/standard_job_family.csv' WITH (FORMAT CSV, HEADER TRUE);",
+        execution_options=None
+    )
+    op.execute(
+        "COPY public.standard_job FROM '/tmp/data/standard_job.csv' WITH (FORMAT CSV, HEADER TRUE);",
+        execution_options=None
+    )
+    op.execute(
+        "COPY public.job_posting FROM '/tmp/data/job_posting.csv' WITH (FORMAT CSV, HEADER TRUE);",
         execution_options=None
     )
 
